@@ -156,7 +156,7 @@ for i in range(0, len(listOfSN),sizeofbatch):
         for ap in existingAps:
             filt = csv_df["serialnumber"] == ap['serial_number']
             hostname = csv_df.loc[filt,'new name'].values[0].strip()
-            response = x.renameAP(ap['serial_number'], hostname)
+            response = x.renameAP(ap['id'], hostname)
             if response != "Success":
                 log_msg = f"Failed to change name of {hostname} on {ap['serial_number']}"
                 sys.stdout.write(RED)
