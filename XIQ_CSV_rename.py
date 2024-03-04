@@ -89,8 +89,7 @@ if args.external:
 print("Make sure the csv file is in the same folder as the python script.")
 filename = input("Please enter csv filename: ")
 
-csv_df = pd.read_csv(filename,dtype=str)
-csv_df['serialnumber'].replace('', np.nan, inplace=True)
+csv_df = pd.read_csv(filename,dtype=str).fillna({'serialnumber': np.nan})
 
 
 # Check for duplicates in the CSV
@@ -124,8 +123,8 @@ elif nanValues.serialnumber.size > 0:
     sys.stdout.write(YELLOW)
     sys.stdout.write("\nSerial numbers were not found for these APs. Please correct and run the script again if you would like to add them.\n  ")
     sys.stdout.write(RESET)
-    print(*nanValues.hostname.values, sep = "\n  ")
-    logger.info("Serial numbers were not found for these APs: " + ",".join(nanValues.hostname.values))
+    print(*nanValues.new_name.values, sep = "\n  ")
+    logger.info("Serial numbers were not found for these APs: " + ",".join(nanValues.new_name.values))
 
 
 # Batch serial numbers 
@@ -155,7 +154,7 @@ for i in range(0, len(listOfSN),sizeofbatch):
         apSNFound = True
         for ap in existingAps:
             filt = csv_df["serialnumber"] == ap['serial_number']
-            hostname = csv_df.loc[filt,'new name'].values[0].strip()
+            hostname = csv_df.loc[filt,'new_name'].values[0].strip()
             response = x.renameAP(ap['id'], hostname)
             if response != "Success":
                 log_msg = f"Failed to change name of {hostname} on {ap['serial_number']}"

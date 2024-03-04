@@ -1,7 +1,7 @@
 # XIQ CSV Rename
 ### XIQ_CSV_rename.py
 ## Purpose
-This script will rename devices from a CSV file. the CSV file will need to have a column labeled ***'serialnumber'*** that contains a list of serial numbers and a column labeled ***'new name'*** with the new hostname for the device. 
+This script will rename devices from a CSV file. the CSV file will need to have a column labeled ***'serialnumber'*** that contains a list of serial numbers and a column labeled ***'new_name'*** with the new hostname for the device. 
 ## Information
 The script will preform API calls to check that those serial numbers exist in the VIQ, if not, it will log a message that the device doesn't exist. 
 
