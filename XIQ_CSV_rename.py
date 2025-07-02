@@ -149,6 +149,13 @@ for i in range(0, len(listOfSN),sizeofbatch):
         log_msg = (f"{len(batch)} out of {len(cleanBatch)} AP serial numbers were not found.")
         print(log_msg)
         logger.warning(log_msg)
+        print("These APs will not be renamed:", end="\n  ")
+        sys.stdout.write(YELLOW)
+        print(*batch, sep = "\n  ")
+        sys.stdout.write(RESET)
+        totalFailed += len(batch)
+        logger.info("These APs were not found: " + ",".join(batch))
+        
 
     if existingAps:
         apSNFound = True
