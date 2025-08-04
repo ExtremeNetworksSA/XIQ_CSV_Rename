@@ -1,12 +1,16 @@
-# XIQ CSV Rename
+# XIQ CSV Rename - UPDATE IN PROGRESS
 ### XIQ_CSV_rename.py
 ## Purpose
-This script will rename devices from a CSV file. the CSV file will need to have a column labeled ***'serialnumber'*** that contains a list of serial numbers and a column labeled ***'new_name'*** with the new hostname for the device. 
+This script will rename the Hostname of devices from a CSV file. The CSV file will need to have a column labeled ***'serialnumber'*** that contains a list of serial numbers and a column labeled ***'new_name'*** with the new hostname for the device. 
+
+Enhanced verion:  This script will also change the description field of a specified device using the same CSV file.  A column must have the label ***'new_description'***.
+
+Any hostname or description cell that is blank will be skipped.
 ## Information
-The script will preform API calls to check that those serial numbers exist in the VIQ, if not, it will log a message that the device doesn't exist. 
+The script will perform API calls to check that those serial numbers exist in the VIQ, if not, it will log a message that the device doesn't exist. 
 
 ## Needed files
-the XIQ_CSV_rename.py script uses several other files. If these files are missing the script will not function.
+The XIQ_CSV_rename.py script uses several other files. If these files are missing the script will not function.
 In the same folder as the XIQ_CSV_rename.py script there should be an /app/ folder. Inside this folder should be a logger.py file and a xiq_api.py file. After running the script a new file 'csv_rename_log.log' will be created.
 
 The script requires a CSV file to be entered when ran. This CSV file should be added to the same folder as the script.
@@ -36,7 +40,7 @@ There is an optional flag that can be added to the script when running.
 ```
 --external
 ```
-This flag will allow you to create the locations and assign the devices to locations on an XIQ account you are an external user on. After logging in with your XIQ credentials the script will give you a numeric option of each of the XIQ instances you have access to. Choose the one you would like to use.
+This flag will enable you to execute this script on an XIQ account where you are an external user. After logging in with your XIQ credentials, the script will give you a numeric option of each of the XIQ instances you have access to. Choose the one you would like to use.
 
 You can add the flag when running the script.
 ```
