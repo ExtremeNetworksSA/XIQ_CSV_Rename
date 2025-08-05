@@ -214,7 +214,8 @@ class XIQ:
                     logger.warning(data)
                 raise ValueError(log_msg)
         return response.status_code
-
+    
+    
     def __getAccessToken(self, user_name, password):
         info = "get XIQ token"
         success = 0
@@ -350,4 +351,11 @@ class XIQ:
         info="rename AP '{}'".format(ap_id)
         url = f"{self.URL}/devices/{ap_id}/hostname?hostname={name}"
         response = self.__setup_put_api_call(info,url)
+        return response
+    
+    def changeDescription(self, ap_id, description):
+        info = f"change description of device '{ap_id}'"
+        url = f"{self.URL}/devices/{ap_id}/description"
+        payload = description
+        response = self.__setup_put_api_call(info, url, payload)
         return response

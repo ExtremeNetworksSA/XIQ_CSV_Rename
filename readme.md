@@ -1,41 +1,49 @@
-# XIQ CSV Rename - UPDATE IN PROGRESS
-### XIQ_CSV_rename.py
+# XIQ CSV Rename
 ## Purpose
-This script will rename the Hostname of devices from a CSV file. The CSV file will need to have a column labeled ***'serialnumber'*** that contains a list of serial numbers and a column labeled ***'new_name'*** with the new hostname for the device. 
+This script will rename the Hostname and Description of devices from a CSV file. A CSV template example has been provided.
 
-Enhanced verion:  This script will also change the description field of a specified device using the same CSV file.  A column must have the label ***'new_description'***.
+>Note: Use a combination of hostname and/or descriptions but the serial number is required.  Serial numbers should be unique per CSV.  Any blank hostname or description cell will be skipped.
 
-Any hostname or description cell that is blank will be skipped.
+Device List CSV Options:
+
+| serialnumber | new_hostname | new_description |
+| ------------ | ------------ | --------------- |
+| 01234567891234 | Change-Hostname | <blank> | 
+| ABCDEFGHIJKLMN | <blank> | Change device description |
+| ABCDEFG0123456 | Change-Hostname | Change device description | 
+
 ## Information
-The script will perform API calls to check that those serial numbers exist in the VIQ, if not, it will log a message that the device doesn't exist. 
+The script will perform API calls to check if serial numbers exist in the VIQ, if not, it will log a message that the device doesn't exist. 
 
 ## Needed files
 The XIQ_CSV_rename.py script uses several other files. If these files are missing the script will not function.
-In the same folder as the XIQ_CSV_rename.py script there should be an /app/ folder. Inside this folder should be a logger.py file and a xiq_api.py file. After running the script a new file 'csv_rename_log.log' will be created.
 
-The script requires a CSV file to be entered when ran. This CSV file should be added to the same folder as the script.
+In the same folder as the `XIQ_CSV_rename.py` script there should be an /app/ folder. Inside this folder should be a `logger.py` file and a `xiq_api.py` file. After running the script a new file `csv_rename_log.log` will be created in the main directory of your CSV script.
+
+The script requires a CSV file to be entered when ran. This CSV file should be added to the same folder as the script. An example CSV file is provided named: `device_list.csv`
 
 The log file that is created when running will show any errors that the script might run into. It is a great place to look when troubleshooting any issues.
 
 ## Running the script
-open the terminal to the location of the script and run this command.
+Open the terminal to the location of the script and run this command.
 
 ```
 python XIQ_CSV_rename.py
 ```
 ### Logging in
-The script will prompt the user for XIQ credentials.
+The script will prompt the user for XIQ credentials.  You can alternatively provide an API token in the script to bypass this requirement if desired.  See line # 17-18.
+
 >Note: your password will not show on the screen as you type
 
 ### Entering the csv file
-The script will prompt to enter the CSV file.
+The script will prompt to enter the CSV file or you can press enter and accept the default name.
 ```
-Make sure the csv file is in the same folder as the python script.
-Please enter csv filename:
+Make sure the CSV file is in the same folder as the python script.
+Please enter csv filename including "CSV" extension [default: device_list.csv <- press enter]:
 ```
 Enter the name of the file that is located in the same folder as the script and press enter.
 
-### flags
+### Optional Flags
 There is an optional flag that can be added to the script when running.
 ```
 --external
@@ -46,5 +54,5 @@ You can add the flag when running the script.
 ```
 python XIQ_CSV_rename.py --external
 ```
-## requirements
+## Requirements
 There are additional modules that need to be installed in order for this script to function. They are listed in the requirements.txt file and can be installed with the command 'pip install -r requirements.txt' if using pip.
