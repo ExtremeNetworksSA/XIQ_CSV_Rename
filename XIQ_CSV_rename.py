@@ -176,6 +176,7 @@ for i in range(0, len(listOfSN),sizeofbatch):
         apSNFound = True
         for ap in existingAps:
             csv_df[['new_hostname']] = csv_df[['new_hostname']].replace(np.nan, '')
+            csv_df[['new_description']] = csv_df[['new_description']].replace(np.nan, '')
             filt = csv_df["serialnumber"] == ap['serial_number']
             hostname = csv_df.loc[filt,'new_hostname'].values[0].strip()
             description = csv_df.loc[filt,'new_description'].values[0].strip()
