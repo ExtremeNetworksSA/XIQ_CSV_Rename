@@ -1,0 +1,4 @@
+serialnumber,new_hostname,new_description
+01234567891234,ChangeHostname,
+ABCDEFGHIJKLMN,,Change device description
+ABCDEFG0123456,ChangeHostname,Change device description
