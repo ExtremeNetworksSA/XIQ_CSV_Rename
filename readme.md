@@ -16,7 +16,7 @@ Device List CSV Options:
 The script will perform API calls to check if serial numbers exist in the VIQ, if not, it will log a message that the device doesn't exist. 
 
 ## Needed files
-The XIQ_CSV_rename.py script uses several other files. If these files are missing the script will not function.
+The `XIQ_CSV_rename.py` script uses several other files. If these files are missing the script will not function.
 
 In the same folder as the `XIQ_CSV_rename.py` script there should be an /app/ folder. Inside this folder should be a `logger.py` file and a `xiq_api.py` file. After running the script a new file `csv_rename_log.log` will be created in the main directory of your CSV script.
 
@@ -55,4 +55,7 @@ You can add the flag when running the script.
 python XIQ_CSV_rename.py --external
 ```
 ## Requirements
-There are additional modules that need to be installed in order for this script to function. They are listed in the requirements.txt file and can be installed with the command 'pip install -r requirements.txt' if using pip.
+There are additional modules that need to be installed in order for this script to function. They're listed in the `requirements.txt` file and can be installed with this command if using pip.
+```
+pip install -r requirements.txt
+```
