@@ -1,4 +1,9 @@
 # XIQ CSV Rename
+
+|  _The software is provided as-is and [Extreme Networks](http://www.extremenetworks.com/) has no obligation to provide maintenance, support, updates, enhancements, or modifications. Any support provided by [Extreme Networks](http://www.extremenetworks.com/) is at its sole discretion._
+
+_Issues and/or bug fixes may be reported on in the Issues for this repository._  |
+
 ## Purpose
 This script will rename the Hostname and Description of devices from a CSV file. A CSV template example has been provided.
 
@@ -6,7 +11,7 @@ This script will rename the Hostname and Description of devices from a CSV file.
 
 Device List CSV Options:
 
-| serialnumber | new_hostname | new_description |
+| Serial Number | new_hostname | new_description |
 | ------------ | ------------ | --------------- |
 | 01234567891234 | Change-Hostname | <blank> | 
 | ABCDEFGHIJKLMN | <blank> | Change device description |
@@ -20,7 +25,7 @@ The `XIQ_CSV_rename.py` script uses several other files. If these files are miss
 
 In the same folder as the `XIQ_CSV_rename.py` script there should be an /app/ folder. Inside this folder should be a `logger.py` file and a `xiq_api.py` file. After running the script a new file `csv_rename_log.log` will be created in the main directory of your CSV script.
 
-The script requires a CSV file to be entered when ran. This CSV file should be added to the same folder as the script. An example CSV file is provided named: `device_list.csv`
+The script requires a CSV file to be entered when ran. An example CSV file is provided named: `device_list.csv`
 
 The log file that is created when running will show any errors that the script might run into. It is a great place to look when troubleshooting any issues.
 
@@ -38,10 +43,10 @@ The script will prompt the user for XIQ credentials.  You can alternatively prov
 ### Entering the csv file
 The script will prompt to enter the CSV file or you can press enter and accept the default name.
 ```
-Make sure the CSV file is in the same folder as the python script.
+Make sure the CSV file is in the same folder as the python script if using the default name.
 Please enter csv filename including "CSV" extension [default: device_list.csv <- press enter]:
 ```
-Enter the name of the file that is located in the same folder as the script and press enter.
+Enter the name of the file and press enter.
 
 ### Optional Flags
 There is an optional flag that can be added to the script when running.

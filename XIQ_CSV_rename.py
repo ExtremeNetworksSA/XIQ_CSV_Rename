@@ -93,20 +93,30 @@ filename = input(f'Please enter csv filename including "CSV" extension [default:
 if not filename:
     filename = default_filename
 
-while not os.path.isfile(filename):
-    sys.stdout.write(RED)
-    sys.stdout.write(f"File '{filename}' does not exist in the current directory ({os.getcwd()}). Please try again.\n")
-    sys.stdout.write(RESET)
-    filename = input(f'Please enter csv filename including "CSV" extension [default: {default_filename} - press enter]: ').strip()
-    if not filename:
-        filename = default_filename
+else:
+    filename = filename.replace("\\ ", " ")
+    filename = filename.replace("'", "")  
+    if os.path.isabs(filename):
+        file_path = os.path.dirname(filename)  # e.g., '/path/to' from '/path/to/myfile.csv'
+        base_filename = os.path.basename(filename)  # e.g., 'myfile.csv' from '/path/to/myfile.csv'
+        print(f"Detected full path: {filename}")
+    else:
+        base_filename = filename  # Use as-is if relative/no path
 
-csv_df = pd.read_csv(filename,dtype=str).fillna({'serialnumber': np.nan})
+try:
+    csv_df = pd.read_csv(filename,dtype=str).fillna({'Serial Number': np.nan})
+except FileNotFoundError:
+    sys.stdout.write(RED)
+    print(f"file {filename} was not found.")
+    print("Script is exiting....")
+    sys.stdout.write(RESET)
+    raise SystemExit
+
 
 # Check for duplicates in the CSV, inform user which serial numbers are duplicated then exit
-duplicateSN = csv_df['serialnumber'].dropna().duplicated().any()
+duplicateSN = csv_df['Serial Number'].dropna().duplicated().any()
 if duplicateSN:
-    dupes = csv_df['serialnumber'].dropna()
+    dupes = csv_df['Serial Number'].dropna()
     duped_values = dupes[dupes.duplicated(keep=False)].unique()
     log_msg = ("Multiple APs have the same serial numbers in the CSV file. Please fix and try again.")
     logger.warning(log_msg + f" Duplicates: {', '.join(duped_values)}")
@@ -120,12 +130,12 @@ if duplicateSN:
 
 
 # Check for rows on CSV file that are missing serial numbers
-nanValues = csv_df[csv_df['serialnumber'].isna()]
+nanValues = csv_df[csv_df['Serial Number'].isna()]
 
 
-listOfSN = list(csv_df['serialnumber'].dropna().unique())
+listOfSN = list(csv_df['Serial Number'].dropna().unique())
 
-if nanValues.serialnumber.size > 0 and len(listOfSN) == 0:
+if nanValues['Serial Number'].size > 0 and len(listOfSN) == 0:
     log_msg = ("Serial numbers were not found for any AP in the CSV. Please check to make sure they are added correctly and try again.")
     logger.warning(log_msg)
     sys.stdout.write(YELLOW)
@@ -133,8 +143,8 @@ if nanValues.serialnumber.size > 0 and len(listOfSN) == 0:
     print("script is exiting....")
     sys.stdout.write(RESET)
     raise SystemExit
-elif nanValues.serialnumber.size > 0:
-    totalFailed += nanValues.serialnumber.size
+elif nanValues['Serial Number'].size > 0:
+    totalFailed += nanValues['Serial Number'].size
     sys.stdout.write(YELLOW)
     sys.stdout.write("\nSerial numbers were not found for these APs. Please correct and run the script again if you would like to add them.\n  ")
     sys.stdout.write(RESET)
@@ -177,7 +187,7 @@ for i in range(0, len(listOfSN),sizeofbatch):
         for ap in existingAps:
             csv_df[['new_hostname']] = csv_df[['new_hostname']].replace(np.nan, '')
             csv_df[['new_description']] = csv_df[['new_description']].replace(np.nan, '')
-            filt = csv_df["serialnumber"] == ap['serial_number']
+            filt = csv_df["Serial Number"] == ap['serial_number']
             hostname = csv_df.loc[filt,'new_hostname'].values[0].strip()
             description = csv_df.loc[filt,'new_description'].values[0].strip()
             if hostname:
